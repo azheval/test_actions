@@ -27,6 +27,6 @@ jobs:
             - run: |
                 gh release create "$tag" \
                 --repo="$GITHUB_REPOSITORY" \
-                --title="${RELEASE_TAGg#v}" \
+                --title="${RELEASE_TAG#v}" \
                 --generate-notes \
                 'README'+ ${{steps.version.outputs.prop}} +'.md'
