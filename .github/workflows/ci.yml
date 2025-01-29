@@ -24,9 +24,13 @@ jobs:
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 RELEASE_TAG: ${{ github.ref_name }}
-            - run: |
-                gh release create "$tag" \
-                --repo="$GITHUB_REPOSITORY" \
-                --title="${RELEASE_TAG#v}" \
-                --generate-notes \
-                'README'+ ${{steps.version.outputs.prop}} +'.md'
+            - name: create release
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                tag: ${{ github.ref_name }}
+              run: |
+                  gh release create "$tag" \
+                  --repo="$GITHUB_REPOSITORY" \
+                  --title="${tag#v}" \
+                  --generate-notes \
+                  'README'+ ${{steps.version.outputs.prop}} +'.md'
